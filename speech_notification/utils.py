@@ -1,4 +1,4 @@
-from termcolor import colored
+from colorama import Fore
 
 
 def handle_user_input_int(input_field: str, input_msg: str = None) -> int:
@@ -16,7 +16,7 @@ def handle_user_input_int(input_field: str, input_msg: str = None) -> int:
         try:
             user_input = int(input(input_msg))
         except ValueError as ve:
-            print(colored(f'Error! {input_field} must be int.', 'red'))
+            print(Fore.RED + f'Error! {input_field} must be int.')
         else:
             return user_input
 
@@ -42,7 +42,7 @@ def convert_minutes_to_seconds(time_in_minutes: int) -> int:
     if isinstance(time_in_minutes, int):
         return time_in_minutes * 60
     else:
-        print(colored("Error! Time must be int.", 'red'))
+        print(Fore.RED + "Error! Time must be int.")
 
 
 

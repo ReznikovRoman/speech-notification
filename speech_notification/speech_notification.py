@@ -1,9 +1,9 @@
 import pyttsx3
+from pyttsx3.drivers import sapi5
 from plyer import notification
 from datetime import datetime
 import time
-from colorama import init
-from termcolor import colored
+from colorama import init, Fore
 
 from utils import (handle_user_input_int, handle_user_input_bool,
                    convert_minutes_to_seconds, )
@@ -11,6 +11,13 @@ from decorators import (set_range, )
 
 
 ######################################################################################################################
+
+'''
+Pyinstaller Command:
+
+pyinstaller --hidden-import=pyttsx3.drivers --hidden-import=pyttsx3.drivers.dummy --hidden-import=pyttsx3.drivers.espeak --hidden-import=pyttsx3.drivers.nsss --hidden-import=pyttsx3.drivers.sapi5 --hidden-import=colorama --hidden-import=plyer --hidden-import=plyer.platforms.win.notification speech_notification.py --onefile
+'''
+
 
 
 class SpeechNotification:
@@ -55,7 +62,7 @@ class SpeechNotification:
             None
         """
         self.say_msg(msg)
-        print(f"\n{colored(msg, 'magenta')}\n")
+        print(f"\n{Fore.MAGENTA + msg}\n")
         notification.notify(
             title='Break',
             message=msg,
@@ -77,13 +84,13 @@ class SpeechNotification:
         time_delta = (datetime.now() - time_before_break).seconds
         break_duration = time.strftime("%H:%M:%S", time.gmtime(time_delta))
         self.__break_durations.append(time_delta)
-        print(f"Perfect! Your break lasted {colored(break_duration, 'green')}. "
+        print(f"Perfect! Your break lasted {Fore.GREEN + break_duration}. "
               f"Your average break is "
-              f"{colored(time.strftime('%H:%M:%S', time.gmtime(self.average_break_duration)), 'blue')}")
+              f"{Fore.BLUE + time.strftime('%H:%M:%S', time.gmtime(self.average_break_duration))}")
 
     def run(self, greeting_msg, break_msg):
         # Greet user at the launch
-        print(colored(greeting_msg, 'yellow'))
+        print(Fore.YELLOW + greeting_msg)
         self.say_msg(greeting_msg)
 
         while True:
@@ -139,5 +146,6 @@ if __name__ == '__main__':
     engine = pyttsx3.init()  # create speech engine
     setup_engine(engine)  # setup engine
     main(engine)
+
 
 

@@ -1,6 +1,6 @@
 from functools import wraps
 from typing import Callable
-from termcolor import colored
+from colorama import Fore
 
 
 #######################################################################################################################
@@ -28,7 +28,7 @@ def set_range(lower_boundary: int, upper_boundary: int, field_name: str):
                     if user_time not in range(int(lower_boundary), int(upper_boundary)):
                         raise ValueError
                 except ValueError as ve:
-                    print(colored(f'Error! {field_name} must be in range [{lower_boundary}, {upper_boundary}].', 'red'))
+                    print(Fore.RED + f'Error! {field_name} must be in range [{lower_boundary}, {upper_boundary}].')
                 else:
                     return user_time
         return wrapper_range
